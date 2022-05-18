@@ -28,6 +28,27 @@
 
 В ответ на запрос сервер должен присылать текущее состояние списка задач после совершения операции и в том виде, в котором его возвращает операция `getAllTasks` (т.е. без всяких json и тп).
 
+<details>
+  <summary>Напоминалка как выглядит простой сервер</summary>
+  
+  ```java
+        try (ServerSocket serverSocket = new ServerSocket(8989);) { // стартуем сервер один(!) раз
+            while (true) { // в цикле(!) принимаем подключения
+                try (
+                        Socket socket = serverSocket.accept();
+                        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                        PrintWriter out = new PrintWriter(socket.getOutputStream());
+                    ) {
+                    // обработка одного подключения
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Не могу стартовать сервер");
+            e.printStackTrace();
+        }
+  ```
+</details>
+
 # Клиент
 Для демонстрационных целей создан [класс Client](https://github.com/netology-code/pcs-javacore/blob/main/src/main/java/ru/netology/javacore/Client.java), который пытается добавить задачу со случайным именем из ограниченного набора имён. Вы можете запустить `Main`, а затем запустить `Client`, чтобы увидеть, как отработает сервер на ваш запрос.
 
